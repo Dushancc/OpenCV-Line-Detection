@@ -17,11 +17,12 @@ while True:
 
     for contour in contours:
         area = cv.contourArea(contour,False)
-        mu = cv.moments(contour)
-        cx = int(mu['m10'] / mu['m00'])
-        cv.circle(frame, (cx, 320), 5, (0, 255, 255), 2)
+        if area > 2000:
+            mu = cv.moments(contour)
+            cx = int(mu['m10'] / mu['m00'])
+            cv.circle(frame, (cx, 320), 5, (0, 255, 255), 2)
 
-    cv.drawContours(frame, contours, -1,(0, 255, 0), 3)
+    cv.drawContours(frame, contours, -1, (0, 255, 0), 3)
 
     cv.imshow('frame d', frame)
     if cv.waitKey(1) & 0xFF == ord('q'):
